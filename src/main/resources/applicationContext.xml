@@ -21,5 +21,6 @@
 
     <!-- <import resource="classpath:framework/dubbo/dubbo.xml" /> -->
     <!--<import resource="classpath:framework/aspect/aspect.xml" />-->
+    <import resource="classpath:applicationContext-ehcache.xml" />
 
 </beans>

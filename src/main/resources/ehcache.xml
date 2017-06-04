@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+	
+	<!-- 
+	diskStore:当内存缓存中对象数量超过maxElementsInMemory时,将缓存对象写到磁盘缓存中(需对象实现序列化接口),文件后缀名是*.data和*.index
+	eternal:缓存中对象是否永久有效,即是否永驻内存,true时将忽略timeToIdleSeconds和timeToLiveSeconds
+	maxElementsInMemory:缓存元素数量
+	overflowToDisk:内存不足时,是否启用磁盘缓存(即内存中对象数量达到maxElementsInMemory时,Ehcache会将对象写到磁盘中)
+	diskPersistent:是否持久化磁盘缓存
+	timeToIdleSeconds:缓存数据在失效前的允许闲置时间，即最后一次访问到失效的时间差，单位秒，若为0，可永久闲置
+	timeToLiveSeconds:缓存数据在失效前的允许存活时间，即创建到失效的时间差，单位秒，若为0，可永久存活
+	memoryStoreEvictionPolicy:内存存储与释放策略,即达到maxElementsInMemory限制时,Ehcache会根据指定策略清理内存，共有三种策略,分别为LRU(最近最少使用)、LFU(最常用的)、FIFO(先进先出) 
+	-->
+	
+	<diskStore path="java.io.tmpdir" />
+	
+	<cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=manual,
+		rmiUrls=//192.168.1.27:40001/cusCache"/>
+	
+	<cacheManagerPeerListenerFactory  
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" properties="hostName=192.168.1.26, port=40001,
+	socketTimeoutMillis=20000"/>
+	<!-- <cacheManagerPeerListenerFactory  
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"  
+        properties="hostName=localhost,port=47892" /> -->
+
+	<defaultCache 
+		eternal="false" 
+		maxElementsInMemory="10000000"
+		overflowToDisk="false" 
+		diskPersistent="false" 
+		timeToIdleSeconds="600"
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LRU" />
+	<cache 
+		name="cusCache" 
+		eternal="false" 
+		maxElementsInMemory="10000000"
+		overflowToDisk="false" 
+		diskPersistent="false" 
+		timeToIdleSeconds="864000"
+		timeToLiveSeconds="2592000" 
+		memoryStoreEvictionPolicy="LRU" >
+		
+		<cacheEventListenerFactory class="com.springPro.factory.EhCacheEventListenerFactory"/>
+		
+		<cacheEventListenerFactory  
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"  
+                properties="replicateAsynchronously=true, replicatePuts=true,
+                            replicateUpdates=true, replicateUpdatesViaCopy=true, 
+                            replicateRemovals=true"/>
+        <bootstrapCacheLoaderFactory  
+            class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" />
+		
+		
+		
+	</cache>
+</ehcache>
