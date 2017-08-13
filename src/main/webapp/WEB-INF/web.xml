@@ -11,7 +11,8 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext.xml,classpath:webPro-security.xml</param-value>
+		<!-- <param-value>classpath:applicationContext.xml,classpath:webPro-security.xml</param-value> -->
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
 	<listener>
@@ -35,18 +36,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<filter>
+	<!-- <filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
-	<listener>
+	<!-- <listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-	</listener>
+	</listener> -->
 
 	<servlet>
 		<servlet-name>webPro</servlet-name>

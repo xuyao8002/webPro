@@ -8,7 +8,7 @@
 
 
 	<http auto-config="true">
-		<intercept-url pattern="/base/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/base1/**" access="hasRole('ROLE_USER')" />
 		<session-management>
 			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" />

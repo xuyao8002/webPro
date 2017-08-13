@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springPro.dao.UsTriggerFrequencyDao">
+  <resultMap id="BaseResultMap" type="com.springPro.entity.UsTriggerFrequency">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId" />
+    <result column="SECONDS" jdbcType="INTEGER" property="seconds" />
+    <result column="MAX_SEND" jdbcType="INTEGER" property="maxSend" />
+    <result column="TIMES" jdbcType="INTEGER" property="times" />
+    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="TYPE" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CUSTOMER_ID, SECONDS, MAX_SEND, TIMES, STATUS, TYPE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from US_TRIGGER_FREQUENCY
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from US_TRIGGER_FREQUENCY
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.springPro.entity.UsTriggerFrequency">
+    insert into US_TRIGGER_FREQUENCY (ID, CUSTOMER_ID, SECONDS, 
+      MAX_SEND, TIMES, STATUS, 
+      TYPE)
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{seconds,jdbcType=INTEGER}, 
+      #{maxSend,jdbcType=INTEGER}, #{times,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springPro.entity.UsTriggerFrequency">
+    insert into US_TRIGGER_FREQUENCY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID,
+      </if>
+      <if test="seconds != null">
+        SECONDS,
+      </if>
+      <if test="maxSend != null">
+        MAX_SEND,
+      </if>
+      <if test="times != null">
+        TIMES,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="seconds != null">
+        #{seconds,jdbcType=INTEGER},
+      </if>
+      <if test="maxSend != null">
+        #{maxSend,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springPro.entity.UsTriggerFrequency">
+    update US_TRIGGER_FREQUENCY
+    <set>
+      <if test="customerId != null">
+        CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="seconds != null">
+        SECONDS = #{seconds,jdbcType=INTEGER},
+      </if>
+      <if test="maxSend != null">
+        MAX_SEND = #{maxSend,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        TIMES = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springPro.entity.UsTriggerFrequency">
+    update US_TRIGGER_FREQUENCY
+    set CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      SECONDS = #{seconds,jdbcType=INTEGER},
+      MAX_SEND = #{maxSend,jdbcType=INTEGER},
+      TIMES = #{times,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=TINYINT},
+      TYPE = #{type,jdbcType=TINYINT}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
