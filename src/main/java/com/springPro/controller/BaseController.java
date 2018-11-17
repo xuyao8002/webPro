@@ -1,8 +1,10 @@
 package com.springPro.controller;
 
-import java.util.UUID;
-import java.util.Vector;
-
+import com.springPro.dao.BaseDao;
+import com.springPro.dao.UsTriggerFrequencyDao;
+import com.springPro.entity.TestInfo;
+import com.springPro.entity.UsTriggerFrequency;
+import com.springPro.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springPro.dao.BaseDao;
-import com.springPro.dao.UsTriggerFrequencyDao;
-import com.springPro.entity.TestInfo;
-import com.springPro.entity.UsTriggerFrequency;
-import com.springPro.service.BaseService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
-@RequestMapping("base")
+@RequestMapping("/base")
 public class BaseController {
 
 	/*@Autowired
@@ -34,24 +35,21 @@ public class BaseController {
 
 	private int i = 0;
 
-	@RequestMapping(value = "code", produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "code")
     @ResponseBody
-    public String code(TestInfo testInfo){
-		return "i'am testing http \r\n"+testInfo;
+    public Map<String, Object> code(TestInfo testInfo, HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", testInfo);
+		System.out.println(request.getParameter("name"));
+		return map;
     }
-	
-	public static void main(String[] args){
-		Vector v = new Vector(18);
-		v.add("haha");
-		System.out.println(v.capacity());
-		System.out.println(v.size());
-	}
 	
     @RequestMapping("show")
     @ResponseBody
     public ModelAndView show(){
-		
-		return new ModelAndView("index", "message", "hello spring security!");
+		System.out.println(System.getProperty("webPro"));
+
+		return new ModelAndView("index", "message", "xuyao");
     }
     
     @RequestMapping("test/{key}")
